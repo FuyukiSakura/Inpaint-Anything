@@ -1,7 +1,13 @@
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(os.getcwd())))
-os.chdir("../")
+
+_APP_DIR = os.path.dirname(os.path.abspath(__file__))
+_REPO_ROOT = os.path.dirname(_APP_DIR)
+
+from segment_anything import SamPredictor, sam_model_registry
+
+sys.path.insert(0, _REPO_ROOT)
+os.chdir(_REPO_ROOT)
 import cv2
 import gradio as gr
 import numpy as np
@@ -9,14 +15,11 @@ from pathlib import Path
 from matplotlib import pyplot as plt
 import torch
 import tempfile
-# from omegaconf import OmegaConf
-# from sam_segment import predict_masks_with_sam
 from stable_diffusion_inpaint import replace_img_with_sd
 from lama_inpaint import inpaint_img_with_lama, build_lama_model, inpaint_img_with_builded_lama
 from utils import load_img_to_array, save_array_to_img, dilate_mask, \
     show_mask, show_points
 from PIL import Image
-from segment_anything import SamPredictor, sam_model_registry
 import argparse
 
 def setup_args(parser):
@@ -351,4 +354,4 @@ with gr.Blocks() as demo:
     )
 
 if __name__ == "__main__":
-    demo.queue(api_open=False).launch(server_name='0.0.0.0', share=False, debug=True)
+    demo.queue().launch(server_name='0.0.0.0', share=False)

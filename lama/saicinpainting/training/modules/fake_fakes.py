@@ -1,6 +1,15 @@
 import torch
-from kornia import SamplePadding
 from kornia.augmentation import RandomAffine, CenterCrop
+
+try:
+    from kornia.constants import SamplePadding
+except ImportError:
+    try:
+        from kornia import SamplePadding
+    except ImportError:
+        import enum
+        class SamplePadding(enum.Enum):
+            REFLECTION = "reflection"
 
 
 class FakeFakesGenerator:

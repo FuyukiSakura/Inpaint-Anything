@@ -63,7 +63,7 @@ def read_frame_from_videos(vname):
 def build_sttn_model(ckpt_p, model_type="sttn", device="cuda"):
     net = importlib.import_module(f'model.{model_type}')
     model = net.InpaintGenerator().to(device)
-    data = torch.load(ckpt_p, map_location=device)
+    data = torch.load(ckpt_p, map_location=device, weights_only=False)
     model.load_state_dict(data['netG'])
     model.eval()
     return model

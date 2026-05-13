@@ -38,6 +38,12 @@ accelerate==1.13.0
 safetensors==0.8.0rc0
 huggingface-hub==0.25.2
 
+# Video inpainting (OSTrack + STTN)
+jpeg4py==0.1.4
+lmdb==1.6.2
+imageio==2.37.3
+imageio-ffmpeg==0.6.0
+
 # Gradio web UI
 gradio==3.50.2
 gradio_client==0.6.1

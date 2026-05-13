@@ -77,6 +77,16 @@ if not exist "%SCRIPT_DIR%\pretrained_models\big-lama\models\best.ckpt" (
     echo Extract to:    %SCRIPT_DIR%\pretrained_models\big-lama\
 )
 
+:: --- OSTrack checkpoint (for video inpainting) ---
+if not exist "%SCRIPT_DIR%\pytracking\pretrain" mkdir "%SCRIPT_DIR%\pytracking\pretrain"
+if not exist "%SCRIPT_DIR%\pytracking\pretrain\vitb_384_mae_ce_32x4_ep300.pth" (
+    echo Downloading OSTrack checkpoint ~150 MB ...
+    python -c "import urllib.request,os;urllib.request.urlretrieve('https://github.com/nicedaddy/IAM_release/releases/download/pretrain/vitb_384_mae_ce_32x4_ep300.pth',os.path.join(r'%SCRIPT_DIR%','pytracking','pretrain','vitb_384_mae_ce_32x4_ep300.pth'),reporthook=lambda b,bs,ts:print(f'\r  {b*bs//1000000}/{ts//1000000} MB',end=''))"
+    echo.
+) else (
+    echo [INFO] OSTrack checkpoint already present.
+)
+
 echo.
 echo ============================================================
 echo   Setup complete! Run start.bat to launch the web UI.
